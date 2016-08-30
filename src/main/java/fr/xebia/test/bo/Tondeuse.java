@@ -4,8 +4,8 @@ package fr.xebia.test.bo;
  * Created by Grégory SOH on 30/08/2016.
  */
 public class Tondeuse {
-    private int coordonneeX;
-    private int coordonneeY;
+    private Integer coordonneeX;
+    private Integer coordonneeY;
     private Orientation orientation;
 
     public Tondeuse(int coordonneeX, int coordonneeY, Orientation orientation) {
@@ -14,7 +14,7 @@ public class Tondeuse {
         this.orientation = orientation;
     }
 
-    public int getCoordonneeX() {
+    public Integer getCoordonneeX() {
         return coordonneeX;
     }
 
@@ -22,7 +22,7 @@ public class Tondeuse {
         this.coordonneeX = coordonneeX;
     }
 
-    public int getCoordonneeY() {
+    public Integer getCoordonneeY() {
         return coordonneeY;
     }
 
