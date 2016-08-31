@@ -12,7 +12,7 @@ public class Commandes {
     private static final int BORDER_MIN = 0;
     private static final int BORDER_MAX = 5;
 
-    public Tondeuse avancer(Tondeuse tondeuse) {
+    public static Tondeuse avancer(Tondeuse tondeuse) {
         Integer posX = tondeuse.getCoordonneeX();
         Integer posY = tondeuse.getCoordonneeY();
 
@@ -32,7 +32,7 @@ public class Commandes {
         return tondeuse;
     }
 
-    public Tondeuse pivoter(Tondeuse tondeuse, Mouvement mouv){
+    public static Tondeuse pivoter(Tondeuse tondeuse, Mouvement mouv){
         Orientation orient = tondeuse.getOrientation();
 
         switch ( orient ){
@@ -60,7 +60,7 @@ public class Commandes {
         return tondeuse;
     }
 
-    private Boolean isTondeuseOnBorder(Tondeuse tondeuse){
+    public static Boolean isTondeuseOnBorder(Tondeuse tondeuse){
         Integer posX = tondeuse.getCoordonneeX();
         Integer posY = tondeuse.getCoordonneeY();
 

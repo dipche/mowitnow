@@ -37,4 +37,13 @@ public class Tondeuse {
     public void setOrientation(Orientation orientation) {
         this.orientation = orientation;
     }
+
+    @Override
+    public String toString() {
+        return "Tondeuse{" +
+                "coordonneeX=" + coordonneeX +
+                ", coordonneeY=" + coordonneeY +
+                ", orientation=" + orientation +
+                '}';
+    }
 }
