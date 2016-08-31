@@ -17,14 +17,18 @@ public class Commandes {
         Integer posY = tondeuse.getCoordonneeY();
 
         switch ( tondeuse.getOrientation() ){
-            case North :
+            case N :
                 posY++;
-            case East :
+                break;
+            case E :
                 posX++;
-            case South :
+                break;
+            case S :
                 posY--;
-            case West :
+                break;
+            case W :
                 posX--;
+                break;
         }
         tondeuse.setCoordonneeX(posX);
         tondeuse.setCoordonneeY(posY);
@@ -36,26 +40,30 @@ public class Commandes {
         Orientation orient = tondeuse.getOrientation();
 
         switch ( orient ){
-            case North:
+            case N:
                 if (mouv == Mouvement.Droite)
-                    tondeuse.setOrientation(Orientation.East);
+                    tondeuse.setOrientation(Orientation.E);
                 else if (mouv == Mouvement.Gauche)
-                    tondeuse.setOrientation(Orientation.West);
-            case East:
+                    tondeuse.setOrientation(Orientation.W);
+                break;
+            case E:
                 if (mouv == Mouvement.Droite)
-                    tondeuse.setOrientation(Orientation.South);
+                    tondeuse.setOrientation(Orientation.S);
                 else if (mouv == Mouvement.Gauche)
-                    tondeuse.setOrientation(Orientation.North);
-            case South:
+                    tondeuse.setOrientation(Orientation.N);
+                break;
+            case S:
                 if (mouv == Mouvement.Droite)
-                    tondeuse.setOrientation(Orientation.West);
+                    tondeuse.setOrientation(Orientation.W);
                 else if (mouv == Mouvement.Gauche)
-                    tondeuse.setOrientation(Orientation.East);
-            case West:
+                    tondeuse.setOrientation(Orientation.E);
+                break;
+            case W:
                 if (mouv == Mouvement.Droite)
-                    tondeuse.setOrientation(Orientation.North);
+                    tondeuse.setOrientation(Orientation.N);
                 else if (mouv == Mouvement.Gauche)
-                    tondeuse.setOrientation(Orientation.South);
+                    tondeuse.setOrientation(Orientation.S);
+                break;
         }
         return tondeuse;
     }
@@ -64,13 +72,13 @@ public class Commandes {
         Integer posX = tondeuse.getCoordonneeX();
         Integer posY = tondeuse.getCoordonneeY();
 
-        if ( posX.compareTo(BORDER_MIN) == 0 && tondeuse.getOrientation() == Orientation.West ){
+        if ( posX.compareTo(BORDER_MIN) == 0 && tondeuse.getOrientation() == Orientation.W ){
            return Boolean.TRUE;
-        } else if ( posY.compareTo(BORDER_MAX) == 0 && tondeuse.getOrientation() == Orientation.North ){
+        } else if ( posY.compareTo(BORDER_MAX) == 0 && tondeuse.getOrientation() == Orientation.N ){
             return Boolean.TRUE;
-        }  else if ( posX.compareTo(BORDER_MAX) == 0 && tondeuse.getOrientation() == Orientation.East ){
+        }  else if ( posX.compareTo(BORDER_MAX) == 0 && tondeuse.getOrientation() == Orientation.E ){
             return Boolean.TRUE;
-        } else if ( posY.compareTo(BORDER_MIN) == 0 && tondeuse.getOrientation() == Orientation.South ){
+        } else if ( posY.compareTo(BORDER_MIN) == 0 && tondeuse.getOrientation() == Orientation.S ){
             return Boolean.TRUE;
         } else
             return Boolean.FALSE;
