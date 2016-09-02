@@ -6,7 +6,7 @@ package fr.xebia.test.bo;
 public enum Orientation {
     N("North"), E("East"), W("West"), S("South");
 
-    private String firstLetter;
+    private final String firstLetter;
     Orientation(String  l) {
         firstLetter = l;
     }

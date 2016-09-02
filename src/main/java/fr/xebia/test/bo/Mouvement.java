@@ -6,7 +6,7 @@ package fr.xebia.test.bo;
 public enum Mouvement {
     Avance("A"), Droite("D"), Gauche("G");
 
-    private String firstLetter;
+    private final String firstLetter;
     Mouvement(String l) {
         firstLetter = l;
     }

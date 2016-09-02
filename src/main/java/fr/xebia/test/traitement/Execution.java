@@ -6,49 +6,45 @@ import fr.xebia.test.bo.Orientation;
 import fr.xebia.test.bo.Tondeuse;
 import fr.xebia.test.commandes.Commandes;
 import fr.xebia.test.utils.IoUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
+import java.io.*;
 
 /**
  * Created by Grégory SOH on 31/08/2016.
  */
-public class Execution {
-    //private static Logger LOGGER = LoggerFactory.getLogger(Execution.class);
+class Execution {
+    private static Logger LOGGER = Logger.getLogger(Execution.class.getName());
 
     public static void main (String [] args){
 
-        //1 contrôle de fichier présent en entrée
-        //InputStream fileIn = IoUtils.createStreamFromFile("commands.txt");
-
         //2 Ecrire Timestamp début traitement dans le fichier résultat
-        //LOGGER.info("Début du Traitement");
+        LOGGER.info("Début du Traitement");
 
-
-        String  thisLine = null;
+        String  thisLine;
         Tondeuse tondeuse = null;
+        BufferedReader reader = null;
+        OutputStream oups = null;
+        String messageOut;
         try {
             //3 Ouvrir le fichier et lire tant que pas fini
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(args[0])));
+            reader = IoUtils.lectureFichier(args[0]);
 
             //4 lecture première ligne du fichier repère du grillage
             reader.readLine();
 
+            oups = new FileOutputStream(args[1]);
             //5 lecture seconde ligne du fichier
             while ((thisLine = reader.readLine()) != null) {
-                System.out.println(thisLine);
-
                 String[] coordonnees = thisLine.split(" ");
                 // Test pour différencier une ligne de coordonnées d'une ligne de commande
                 if (coordonnees.length > 1){
                   tondeuse = new Tondeuse(Integer.valueOf(coordonnees[0]),
                           Integer.valueOf(coordonnees[1]), Orientation.valueOf(coordonnees[2]));
-                   // LOGGER.info("Position initiale tondeuse : " + tondeuse.toString());
-                    System.out.println("Position initiale tondeuse : " + tondeuse.toString());
+                   LOGGER.info("Position initiale tondeuse : " + tondeuse.toString());
+                   messageOut = "Position initiale tondeuse : " + tondeuse.toString();
+                   IoUtils.ecrireFichier(oups, messageOut);
                 } else{
                     // c'est une ligne de commande reçue
                     for(int i = 0; i < thisLine.length(); i++) {
@@ -57,42 +53,35 @@ public class Execution {
                             if ( Commandes.isTondeuseOnBorder(tondeuse) )
                                 continue;
                             else {
-                                Commandes.avancer(tondeuse);
+                                tondeuse = Commandes.avancer(tondeuse);
                             }
-
                         } else if (command == 'D'){
                             Commandes.pivoter(tondeuse, Mouvement.Droite);
                         } else {
                             Commandes.pivoter(tondeuse, Mouvement.Gauche);
                         }
                     }
-                    //LOGGER.info("Position finale tondeuse : " + tondeuse.toString());
-                    System.out.println("Position finale tondeuse : " + tondeuse.toString());
+                    assert tondeuse != null;
+                    LOGGER.info("Position finale tondeuse : " + tondeuse.toString());
+                    messageOut = "Position finale tondeuse : " + tondeuse.toString();
+                    IoUtils.ecrireFichier(oups, messageOut);
                 }
             }
-
-            //IoUtils.closeInputStream(reader);
-        }catch(Exception e){
-            //LOGGER.error("Exception Buffer reader " + e.getMessage(), e);
-            System.out.println("Position finale tondeuse : " + tondeuse.toString());
+        }catch(IOException ioe){
+            LOGGER.error("Exception Buffer reader " + ioe.getMessage(), ioe);
+        } finally {
+            try {
+                IoUtils.closeInputStream(reader);
+            } catch (IOException e) {
+                    LOGGER.error("Erreur à la fermeture du flux " + e.getMessage(), e);
+            }
+            if (oups != null){
+                try {
+                    oups.close();
+                } catch (IOException e) {
+                    LOGGER.error("Erreur à la fermeture du flux " + e.getMessage(), e);
+                }
+            }
         }
-
-
-
-
-
-
-
-        //6 écrire coordonnées de début de la première tondeuse dans le fichier
-
-        //7 instancier la prmeière tondeuse
-
-        //8 lecture troisième ligne du fichier
-
-        //9 traitement de la ligne élément par élément selon la commande tant que ligne non finie
-
-        //10 test fin de ligne ligne de commande traité
-
-        //11 reprendre à 5 tant que fin de fichier pas atteinte
     }
 }
