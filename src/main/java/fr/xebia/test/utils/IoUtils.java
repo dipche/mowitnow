@@ -39,4 +39,15 @@ public class IoUtils {
                 throw new RuntimeException(e);
             }
         }
+
+        public static void controlArgs(final String commandsFile, final String resultsFile){
+            if (commandsFile == null || commandsFile.length() == 0) {
+                throw new IllegalArgumentException("Erreur Controle arguments. Fichier de commande inexistant!");
+            }
+
+            if (resultsFile == null || resultsFile.length() == 0) {
+                throw new IllegalArgumentException("Erreur Controle arguments. Fichier de résultas inexistant!");
+            }
+
+        }
     }

@@ -19,6 +19,9 @@ class Execution {
 
     public static void main (String [] args){
 
+        //1 Controle des arguments en entrée
+        IoUtils.controlArgs(args[0], args[1]);
+
         //2 Ecrire Timestamp début traitement dans le fichier résultat
         LOGGER.info("Début du Traitement");
 
