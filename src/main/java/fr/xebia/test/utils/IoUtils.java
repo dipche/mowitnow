@@ -32,13 +32,15 @@ public class IoUtils {
 
         public static void closeInputStream(final BufferedReader in) throws IOException {
             try {
-                in.close();
+                if (in != null)
+                    in.close();
             }
             catch (IOException e) {
                 LOG.error("Exception in IOUtil::closeInputStream" + e.getMessage(), e);
                 throw new RuntimeException(e);
             }
         }
+
 
         public static void controlArgs(final String commandsFile, final String resultsFile){
             if (commandsFile == null || commandsFile.length() == 0) {

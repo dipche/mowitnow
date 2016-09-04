@@ -34,6 +34,9 @@ class Execution {
             //3 Ouvrir le fichier et lire tant que pas fini
             reader = IoUtils.lectureFichier(args[0]);
 
+           if (  ! reader.ready() ){
+                throw new IllegalArgumentException("Erreur : fichier de commande inexistant!");
+           }
             //4 lecture première ligne du fichier repère du grillage
             reader.readLine();
 

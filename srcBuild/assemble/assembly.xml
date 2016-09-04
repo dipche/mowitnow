@@ -25,10 +25,24 @@
         </fileSet>
         <fileSet>
             <directory>srcBuild/documentation</directory>
-            <outputDirectory>doc</outputDirectory>
+            <outputDirectory>documentation</outputDirectory>
             <includes>
                 <include>README*</include>
           	</includes>
+        </fileSet>
+        <fileSet>
+            <directory>srcBuild/documentation</directory>
+            <outputDirectory>in</outputDirectory>
+            <excludes>
+                <exclude>*</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>srcBuild/documentation</directory>
+            <outputDirectory>out</outputDirectory>
+            <excludes>
+                <exclude>*</exclude>
+            </excludes>
         </fileSet>
     </fileSets>
     <files>
