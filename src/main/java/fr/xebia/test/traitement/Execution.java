@@ -19,10 +19,10 @@ class Execution {
 
     public static void main (String [] args){
 
-        //1 Controle des arguments en entrée
+
         IoUtils.controlArgs(args[0], args[1]);
 
-        //2 Ecrire Timestamp début traitement dans le fichier résultat
+
         LOGGER.info("Début du Traitement");
 
         String  thisLine;
@@ -31,28 +31,23 @@ class Execution {
         OutputStream oups = null;
         String messageOut;
         try {
-            //3 Ouvrir le fichier et lire tant que pas fini
+
             reader = IoUtils.lectureFichier(args[0]);
 
-           if (  ! reader.ready() ){
-                throw new IllegalArgumentException("Erreur : fichier de commande inexistant!");
-           }
-            //4 lecture première ligne du fichier repère du grillage
             reader.readLine();
 
             oups = new FileOutputStream(args[1]);
-            //5 lecture seconde ligne du fichier
+
             while ((thisLine = reader.readLine()) != null) {
                 String[] coordonnees = thisLine.split(" ");
-                // Test pour différencier une ligne de coordonnées d'une ligne de commande
+
                 if (coordonnees.length > 1){
                   tondeuse = new Tondeuse(Integer.valueOf(coordonnees[0]),
                           Integer.valueOf(coordonnees[1]), Orientation.valueOf(coordonnees[2]));
-                   LOGGER.info("Position initiale tondeuse : " + tondeuse.toString());
-                   messageOut = "Position initiale tondeuse : " + tondeuse.toString();
-                   IoUtils.ecrireFichier(oups, messageOut);
+                       LOGGER.info("Position initiale tondeuse : " + tondeuse.toString());
+                       messageOut = "Position initiale tondeuse : " + tondeuse.toString();
+                       IoUtils.ecrireFichier(oups, messageOut);
                 } else{
-                    // c'est une ligne de commande reçue
                     for(int i = 0; i < thisLine.length(); i++) {
                         char command = thisLine.charAt(i);
                         if (command == 'A'){
